@@ -1,0 +1,294 @@
+@import "tailwindcss";
+
+:root {
+  --cloud: #c9c9cc;
+  --cloud-deep: #a8a8ad;
+  --card: #f7f7f5;
+  --ink: #131313;
+  --ink-soft: #4a4a4a;
+  --muted: #8a8a8a;
+  --line: #e2e2df;
+  --dark: #161616;
+  --dark-line: #2c2c2c;
+  --dark-text: #ededea;
+  --dark-muted: #9a9a97;
+  --accent: #22c55e;
+}
+
+@theme inline {
+  --color-cloud: var(--cloud);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-dark: var(--dark);
+  --color-dark-line: var(--dark-line);
+  --color-dark-text: var(--dark-text);
+  --color-dark-muted: var(--dark-muted);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-archivo);
+}
+
+html {
+  scroll-behavior: initial; /* Lenis assume o controle */
+}
+
+body {
+  background-color: var(--cloud);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), sans-serif;
+  overflow-x: clip;
+}
+
+/* fundo de "nuvens" — blobs radiais em drift lento */
+.clouds::before,
+.clouds::after {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 30% at 20% 30%, #ffffff55, transparent 70%),
+    radial-gradient(35% 28% at 75% 20%, #ffffff44, transparent 70%),
+    radial-gradient(45% 35% at 60% 75%, var(--cloud-deep), transparent 70%),
+    radial-gradient(30% 25% at 15% 80%, #ffffff33, transparent 70%);
+  animation: cloud-drift 40s ease-in-out infinite alternate;
+}
+
+.clouds::after {
+  background:
+    radial-gradient(38% 30% at 85% 60%, #ffffff40, transparent 70%),
+    radial-gradient(42% 32% at 35% 55%, var(--cloud-deep), transparent 72%);
+  animation-duration: 55s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes cloud-drift {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, 2%, 0) scale(1.06);
+  }
+}
+
+/* nome em contorno (hero) */
+.text-outline {
+  -webkit-text-stroke: 2px var(--ink);
+  color: transparent;
+}
+
+.text-outline-dark {
+  -webkit-text-stroke: 2px var(--dark-text);
+  color: transparent;
+}
+
+@media (max-width: 640px) {
+  .text-outline,
+  .text-outline-dark {
+    -webkit-text-stroke-width: 1.2px;
+  }
+}
+
+/* ghost text gigante atrás dos títulos de seção */
+.ghost-title {
+  position: absolute;
+  top: -0.15em;
+  left: 0;
+  font-size: 2.6em;
+  line-height: 1;
+  opacity: 0.05;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* linha do reveal: o pai corta, o filho sobe */
+.reveal-mask {
+  overflow: clip;
+}
+
+/* ===== transições de rota (View Transitions API) ===== */
+/* forward: página atual escala/borra pra trás e sai pra esquerda,
+   nova entra da direita por cima. back: espelhado. */
+
+::view-transition-old(.nav-forward) {
+  animation: 480ms cubic-bezier(0.83, 0, 0.17, 1) both vt-out-left;
+}
+::view-transition-new(.nav-forward) {
+  animation: 560ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both vt-in-right;
+}
+
+::view-transition-old(.nav-back) {
+  animation: 480ms cubic-bezier(0.83, 0, 0.17, 1) both vt-out-right;
+}
+::view-transition-new(.nav-back) {
+  animation: 560ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both vt-in-left;
+}
+
+@keyframes vt-out-left {
+  to {
+    opacity: 0;
+    transform: translateX(-10%) scale(0.96);
+    filter: blur(6px);
+  }
+}
+
+@keyframes vt-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(12%) scale(0.98);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes vt-out-right {
+  to {
+    opacity: 0;
+    transform: translateX(10%) scale(0.96);
+    filter: blur(6px);
+  }
+}
+
+@keyframes vt-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-12%) scale(0.98);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+/* ===== reveal de cor na foto: círculo segue o cursor ===== */
+.photo-color-mask {
+  -webkit-mask-image: radial-gradient(
+    circle var(--r, 0px) at var(--mx, 50%) var(--my, 50%),
+    #000 62%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--r, 0px) at var(--mx, 50%) var(--my, 50%),
+    #000 62%,
+    transparent 100%
+  );
+}
+
+/* ===== micro-interações ===== */
+::selection {
+  background: var(--ink);
+  color: var(--card);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* underline animado pra links de nav */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* indicador de scroll no hero */
+.scroll-hint-line {
+  animation: scroll-hint 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  transform-origin: top;
+}
+
+@keyframes scroll-hint {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* faixa de texto infinita */
+.marquee-track {
+  animation: marquee-scroll 22s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ===== acessibilidade: reduz movimento ===== */
+@media (prefers-reduced-motion: reduce) {
+  .clouds::before,
+  .clouds::after,
+  .scroll-hint-line,
+  .marquee-track {
+    animation: none;
+  }
+
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+/* acordeão dos pilares — grid-rows trick */
+.pillar-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.pillar-body[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.pillar-body > div {
+  overflow: hidden;
+}
