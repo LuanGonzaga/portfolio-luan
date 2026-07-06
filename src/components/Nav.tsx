@@ -5,7 +5,7 @@ import { site, navLinks } from "@/lib/data";
 
 export default function Nav() {
   return (
-    <header className="flex items-center justify-between gap-4 rounded-t-2xl bg-card/85 px-6 py-4 backdrop-blur-md sm:px-10">
+    <header className="sticky top-0 z-50 flex items-center justify-between gap-4 rounded-t-2xl bg-card/85 px-6 py-4 backdrop-blur-md sm:px-10">
       <Link
         href="/"
         className="hidden items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-xs font-medium shadow-sm sm:flex"

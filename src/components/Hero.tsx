@@ -121,11 +121,11 @@ export default function Hero() {
   return (
     <section
       onMouseMove={onSectionMove}
-      className="sticky top-0 h-svh overflow-hidden"
+      className="sticky top-0 h-[calc(100svh-5.25rem)] overflow-hidden sm:h-[calc(100svh-5.5rem)]"
     >
       <div ref={innerRef} className="relative h-full px-6 sm:px-10">
         {/* nome centralizado, foto passa por cima */}
-        <h1 className="pt-24 text-center font-(family-name:--font-display) text-[clamp(3rem,11vw,10rem)] font-extrabold leading-[0.95] tracking-tight sm:pt-28">
+        <h1 className="pt-20 text-center font-(family-name:--font-display) text-[clamp(3rem,12vw,10rem)] font-extrabold leading-[0.95] tracking-tight sm:pt-28">
           <Reveal onScroll={false} delay={0.1}>
             <span className="text-outline">{site.firstName}</span>{" "}
             <span>{site.lastName}</span>
@@ -135,7 +135,7 @@ export default function Hero() {
         {/* foto central: base monocromática + camada colorida em círculo */}
         <div
           ref={photoRef}
-          className="pointer-events-none absolute bottom-0 left-1/2 h-[70svh] w-[min(94vw,720px)] -translate-x-1/2 opacity-0 sm:h-[84svh]"
+          className="pointer-events-none absolute bottom-0 left-1/2 h-[62svh] w-[150vw] -translate-x-1/2 opacity-0 sm:h-[84svh] sm:w-[min(94vw,720px)]"
         >
           <Image
             src="/images/luan.png"
@@ -159,7 +159,7 @@ export default function Hero() {
         </div>
 
         {/* bloco esquerdo: cargo rotativo + descrição + CTA */}
-        <div className="absolute bottom-8 left-4 z-10 max-w-xs rounded-2xl bg-card/75 p-4 backdrop-blur-md sm:bottom-14 sm:left-10">
+        <div className="absolute inset-x-4 bottom-6 z-10 rounded-2xl bg-card/80 p-5 backdrop-blur-md sm:inset-x-auto sm:bottom-14 sm:left-10 sm:max-w-xs sm:p-4">
           {/* leitor de tela recebe a lista completa; animação fica escondida */}
           <span className="sr-only">{site.roles.join(", ")}</span>
           <div
@@ -185,14 +185,32 @@ export default function Hero() {
           </Reveal>
 
           <Reveal onScroll={false} delay={0.6} className="mt-5">
-            <Magnetic>
-              <a
-                href={`mailto:${site.email}`}
-                className="inline-block rounded-full bg-ink px-6 py-3 text-sm text-white"
-              >
-                Let&apos;s collaborate ↗
-              </a>
-            </Magnetic>
+            <div className="flex flex-wrap items-center gap-3">
+              <Magnetic>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="inline-block rounded-full bg-ink px-6 py-3 text-sm text-white"
+                >
+                  Let&apos;s collaborate ↗
+                </a>
+              </Magnetic>
+
+              {/* socials compactos — só no mobile (desktop usa a coluna direita) */}
+              <div className="flex gap-2 sm:hidden">
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="rounded-full border border-line bg-white px-3 py-2 text-xs font-medium text-ink-soft"
+                  >
+                    {s.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </Reveal>
         </div>
 
