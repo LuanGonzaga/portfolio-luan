@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "@/components/Reveal";
 import Magnetic from "@/components/Magnetic";
+import WhatsApp from "@/components/icons/WhatsApp";
 import { useI18n } from "@/lib/i18n";
 import { site, socials, ui } from "@/lib/data";
 
@@ -207,8 +208,9 @@ export default function Hero() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className="rounded-full border border-line bg-white px-3 py-2 text-xs font-medium text-ink-soft"
+                    className="flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-2 text-xs font-medium text-ink-soft"
                   >
+                    {s.icon === "whatsapp" && <WhatsApp className="h-3.5 w-3.5" />}
                     {s.label}
                   </a>
                 ))}
@@ -228,6 +230,7 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 rounded-full border border-line bg-white px-4 py-2 text-xs font-medium text-ink-soft shadow-sm transition-colors hover:text-ink"
                 >
+                  {s.icon === "whatsapp" && <WhatsApp className="h-3.5 w-3.5" />}
                   {s.label} ↗
                 </a>
               </Magnetic>

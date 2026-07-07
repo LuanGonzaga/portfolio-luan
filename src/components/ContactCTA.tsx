@@ -2,8 +2,9 @@
 
 import Reveal from "@/components/Reveal";
 import Magnetic from "@/components/Magnetic";
+import WhatsApp from "@/components/icons/WhatsApp";
 import { useI18n } from "@/lib/i18n";
-import { site, ui } from "@/lib/data";
+import { site, ui, whatsapp } from "@/lib/data";
 
 export default function ContactCTA() {
   const { t } = useI18n();
@@ -32,14 +33,27 @@ export default function ContactCTA() {
       </Reveal>
 
       <Reveal delay={0.3} className="mt-10">
-        <Magnetic>
-          <a
-            href={`mailto:${site.email}`}
-            className="inline-block rounded-full bg-ink px-8 py-4 text-sm text-white"
-          >
-            {t(ui.contactMe)} ↗
-          </a>
-        </Magnetic>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Magnetic>
+            <a
+              href={`mailto:${site.email}`}
+              className="inline-block rounded-full bg-ink px-8 py-4 text-sm text-white"
+            >
+              {t(ui.contactMe)} ↗
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href={whatsapp.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-8 py-4 text-sm font-medium text-white"
+            >
+              <WhatsApp className="h-4 w-4" />
+              WhatsApp
+            </a>
+          </Magnetic>
+        </div>
       </Reveal>
     </section>
   );

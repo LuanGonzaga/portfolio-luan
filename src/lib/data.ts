@@ -519,10 +519,18 @@ export const skills: SkillGroup[] = [
 
 export const skillsFlat = skills.flatMap((g) => g.items);
 
-export const socials = [
+export const whatsapp = {
+  number: "5511947226236",
+  href: "https://wa.me/5511947226236",
+};
+
+export type Social = { label: string; href: string; icon?: "whatsapp" };
+
+export const socials: Social[] = [
   { label: "GitHub", href: "https://github.com/LuanGonzaga" },
   { label: "LinkedIn", href: "https://www.linkedin.com/in/luangonzagaa/" },
   { label: "TryHackMe", href: "https://tryhackme.com/p/pwnedby" },
+  { label: "WhatsApp", href: whatsapp.href, icon: "whatsapp" },
 ];
 
 export const pillarBySlug = (slug: PillarSlug) =>
