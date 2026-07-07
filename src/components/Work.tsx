@@ -1,9 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import Reveal from "@/components/Reveal";
+import { useI18n } from "@/lib/i18n";
 import { publishedProjects, pillarBySlug } from "@/lib/data";
 
 export default function Work() {
+  const { t } = useI18n();
   return (
     <section id="work" className="relative px-6 py-24 sm:px-10">
       <div className="relative mb-14">
@@ -37,7 +41,7 @@ export default function Work() {
                 {project.image && (
                   <Image
                     src={project.image}
-                    alt={project.title}
+                    alt={t(project.title)}
                     fill
                     sizes="(max-width: 640px) 100vw, 50vw"
                     className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
@@ -56,23 +60,23 @@ export default function Work() {
                 </span>
               </div>
               <h3 className="mt-4 text-lg font-medium leading-snug transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:translate-x-1">
-                {project.title}
+                {t(project.title)}
               </h3>
               <div className="mt-3 flex flex-wrap gap-2">
                 <span className="rounded-full border border-line bg-white px-3 py-1 text-xs text-ink-soft">
-                  {pillarBySlug(project.pillar).title}
+                  {t(pillarBySlug(project.pillar).title)}
                 </span>
                 {project.lang && (
                   <span className="rounded-full bg-ink px-3 py-1 text-xs text-white">
                     {project.lang}
                   </span>
                 )}
-                {project.tags.map((t) => (
+                {project.tags.map((tag) => (
                   <span
-                    key={t}
+                    key={tag}
                     className="rounded-full border border-line px-3 py-1 text-xs text-muted"
                   >
-                    {t}
+                    {tag}
                   </span>
                 ))}
               </div>

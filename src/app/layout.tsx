@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Archivo } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import { LocaleProvider } from "@/lib/i18n";
 import { site } from "@/lib/data";
 
 const geistSans = Geist({
@@ -59,7 +60,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${archivo.variable} h-full antialiased`}
     >
       <body className="clouds min-h-full flex flex-col">
-        <SmoothScroll>{children}</SmoothScroll>
+        <LocaleProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </LocaleProvider>
       </body>
     </html>
   );

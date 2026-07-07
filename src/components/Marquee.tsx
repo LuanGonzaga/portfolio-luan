@@ -1,8 +1,12 @@
-const items = ["WEB DEVELOPMENT", "OFFENSIVE SECURITY", "DIGITAL MARKETING"];
+"use client";
+
+import { useI18n } from "@/lib/i18n";
+import { pillars } from "@/lib/data";
 
 /** Faixa infinita de texto — separador visual entre hero e conteúdo. */
 export default function Marquee() {
-  const strip = items.map((t) => `${t} · `).join("");
+  const { t } = useI18n();
+  const strip = pillars.map((p) => `${t(p.title)} · `).join("");
 
   return (
     <div

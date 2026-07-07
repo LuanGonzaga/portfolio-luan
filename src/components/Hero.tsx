@@ -7,11 +7,13 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "@/components/Reveal";
 import Magnetic from "@/components/Magnetic";
-import { site, socials } from "@/lib/data";
+import { useI18n } from "@/lib/i18n";
+import { site, socials, ui } from "@/lib/data";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Hero() {
+  const { t } = useI18n();
   const innerRef = useRef<HTMLDivElement>(null);
   const rolesRef = useRef<HTMLDivElement>(null);
   const photoRef = useRef<HTMLDivElement>(null);
@@ -161,7 +163,9 @@ export default function Hero() {
         {/* bloco esquerdo: cargo rotativo + descrição + CTA */}
         <div className="absolute inset-x-4 bottom-6 z-10 rounded-2xl bg-card/80 p-5 backdrop-blur-md sm:inset-x-auto sm:bottom-14 sm:left-10 sm:max-w-xs sm:p-4">
           {/* leitor de tela recebe a lista completa; animação fica escondida */}
-          <span className="sr-only">{site.roles.join(", ")}</span>
+          <span className="sr-only">
+            {site.roles.map((r) => t(r)).join(", ")}
+          </span>
           <div
             ref={rolesRef}
             aria-hidden
@@ -169,18 +173,17 @@ export default function Hero() {
           >
             {site.roles.map((role) => (
               <div
-                key={role}
+                key={role.en}
                 className="hero-role absolute inset-0 whitespace-nowrap"
               >
-                {role}
+                {t(role)}
               </div>
             ))}
           </div>
 
           <Reveal onScroll={false} delay={0.5} className="mt-2">
             <p className="text-sm leading-relaxed text-muted">
-              I build web products, break them to make them safer, and market
-              them to grow.
+              {t(ui.heroBlurb)}
             </p>
           </Reveal>
 
@@ -191,7 +194,7 @@ export default function Hero() {
                   href={`mailto:${site.email}`}
                   className="inline-block rounded-full bg-ink px-6 py-3 text-sm text-white"
                 >
-                  Let&apos;s collaborate ↗
+                  {t(ui.letsCollaborate)} ↗
                 </a>
               </Magnetic>
 

@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Pillars from "@/components/Pillars";
 import Work from "@/components/Work";
+import Skills from "@/components/Skills";
 import Experience from "@/components/Experience";
 import ContactCTA from "@/components/ContactCTA";
 import { site } from "@/lib/data";
@@ -25,6 +26,7 @@ export default function Home() {
           <Marquee />
           <Pillars />
           <Work />
+          <Skills />
           <Experience />
           <ContactCTA />
           <footer className="flex items-center justify-between px-6 py-8 text-xs text-muted sm:px-10">

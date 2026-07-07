@@ -3,9 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
-import { pillars } from "@/lib/data";
+import { useI18n } from "@/lib/i18n";
+import { pillars, ui, fill } from "@/lib/data";
 
 export default function Pillars() {
+  const { t } = useI18n();
   const [open, setOpen] = useState(0);
 
   return (
@@ -47,7 +49,7 @@ export default function Pillars() {
                       {p.tagline}
                     </span>
                     <span className="font-(family-name:--font-display) text-2xl font-bold tracking-tight sm:text-5xl">
-                      {p.title}
+                      {t(p.title)}
                     </span>
                   </span>
                   <span className="text-2xl">{isOpen ? "✕" : "↗"}</span>
@@ -58,15 +60,15 @@ export default function Pillars() {
                     <div className="flex flex-col gap-6 px-2 pb-8 sm:flex-row sm:items-end sm:justify-between sm:px-6">
                       <div>
                         <p className="max-w-md text-sm leading-relaxed text-dark-muted">
-                          {p.description}
+                          {t(p.description)}
                         </p>
                         <div className="mt-4 flex flex-wrap gap-2">
-                          {p.tags.map((t) => (
+                          {p.tags.map((tag) => (
                             <span
-                              key={t}
+                              key={tag}
                               className="rounded-full border border-dark-line px-3 py-1 text-xs text-dark-muted"
                             >
-                              {t}
+                              {tag}
                             </span>
                           ))}
                         </div>
@@ -76,7 +78,7 @@ export default function Pillars() {
                         transitionTypes={["nav-forward"]}
                         className="shrink-0 rounded-full bg-dark-text px-6 py-3 text-sm text-dark transition-transform hover:scale-105"
                       >
-                        Explore {p.title.toLowerCase()} ↗
+                        {fill(t(ui.explore), t(p.title).toLowerCase())} ↗
                       </Link>
                     </div>
                   </div>

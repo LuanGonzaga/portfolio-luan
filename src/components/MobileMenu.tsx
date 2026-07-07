@@ -3,9 +3,12 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { site, navLinks } from "@/lib/data";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useI18n } from "@/lib/i18n";
+import { site, navLinks, ui } from "@/lib/data";
 
 export default function MobileMenu() {
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -39,7 +42,7 @@ export default function MobileMenu() {
       <nav className="flex flex-col gap-2">
         {navLinks.map((l, i) => (
           <Link
-            key={l.label}
+            key={l.href}
             href={l.href}
             onClick={() => setOpen(false)}
             style={{ transitionDelay: open ? `${100 + i * 60}ms` : "0ms" }}
@@ -47,21 +50,26 @@ export default function MobileMenu() {
               open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
             }`}
           >
-            {l.label}
+            {t(l.label)}
           </Link>
         ))}
       </nav>
 
-      <a
-        href={`mailto:${site.email}`}
-        onClick={() => setOpen(false)}
+      <div
         style={{ transitionDelay: open ? "400ms" : "0ms" }}
-        className={`rounded-full bg-dark-text px-6 py-4 text-center text-sm text-dark transition-[opacity,translate] duration-500 ${
+        className={`flex flex-col gap-4 transition-[opacity,translate] duration-500 ${
           open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
         }`}
       >
-        Let&apos;s Talk ↗
-      </a>
+        <LanguageSwitcher dark />
+        <a
+          href={`mailto:${site.email}`}
+          onClick={() => setOpen(false)}
+          className="rounded-full bg-dark-text px-6 py-4 text-center text-sm text-dark"
+        >
+          {t(ui.letsTalk)} ↗
+        </a>
+      </div>
     </div>
   );
 

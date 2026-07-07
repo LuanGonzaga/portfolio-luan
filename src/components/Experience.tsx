@@ -5,18 +5,19 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Reveal from "@/components/Reveal";
-import { experience, education } from "@/lib/data";
+import { useI18n, type L } from "@/lib/i18n";
+import { experience, education, ui } from "@/lib/data";
 
 gsap.registerPlugin(useGSAP);
 
 type Row = {
   key: string;
   title: string;
-  subtitle: string;
+  subtitle: L;
   period: string;
   logo?: string;
-  description: string;
-  highlights?: string[];
+  description: L;
+  highlights?: L[];
 };
 
 const expRows: Row[] = experience.map((e, i) => ({
@@ -39,6 +40,7 @@ const eduRows: Row[] = education.map((e, i) => ({
 }));
 
 export default function Experience() {
+  const { t } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const xTo = useRef<gsap.QuickToFunc | null>(null);
@@ -94,7 +96,7 @@ export default function Experience() {
         >
           <div className="transition-transform duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] group-hover:translate-x-3">
             <h3 className="text-lg font-medium">{item.title}</h3>
-            <p className="mt-1 text-sm text-dark-muted">{item.subtitle}</p>
+            <p className="mt-1 text-sm text-dark-muted">{t(item.subtitle)}</p>
           </div>
           <span className="flex shrink-0 items-center gap-4">
             <span className="text-sm text-dark-muted">{item.period}</span>
@@ -113,16 +115,16 @@ export default function Experience() {
           <div>
             <div className="mb-7 rounded-xl border border-dark-line bg-white/[0.03] p-6">
               <p className="max-w-2xl text-sm leading-relaxed text-dark-muted">
-                {item.description}
+                {t(item.description)}
               </p>
               {item.highlights && (
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {item.highlights.map((h) => (
                     <li
-                      key={h}
+                      key={h.en}
                       className="rounded-full border border-dark-line px-3 py-1 text-xs text-dark-muted"
                     >
-                      {h}
+                      {t(h)}
                     </li>
                   ))}
                 </ul>
@@ -171,7 +173,7 @@ export default function Experience() {
           </h2>
         </Reveal>
         <span className="hidden text-sm text-dark-muted sm:block">
-          multi-disciplinary
+          {t(ui.multidisciplinary)}
         </span>
       </div>
 
