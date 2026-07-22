@@ -99,7 +99,7 @@ export default function LandingPagesSalesPage() {
       <section id="inicio" className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-[1.03fr_.97fr] lg:py-28">
         <div>
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#173f3b]/15 bg-white/70 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.13em] text-[#3f5e5a]">
-            <span className="h-2 w-2 rounded-full bg-[#df6b45]" /> Projetos com atendimento direto
+            <span className="h-2 w-2 rounded-full bg-[#df6b45]" /> Landing pages com atendimento direto
           </div>
           <HeroVariant />
           <p className="mt-6 max-w-xl text-base leading-7 text-[#496461] sm:text-lg">
@@ -116,15 +116,19 @@ export default function LandingPagesSalesPage() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[540px]">
+        <div className="relative mx-auto w-full max-w-[500px]">
           <div className="absolute -inset-5 rounded-[2.5rem] bg-[#b8ddd4]/50 blur-2xl" />
           <div className="relative overflow-hidden rounded-[1.75rem] border border-[#173f3b]/10 bg-white p-2 shadow-[0_24px_70px_rgba(16,45,43,.14)]">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-[#e8ece8]">
-              <Image src={proofProjects[0].image.replace("/proof/", "/proof/optimized/")} alt={`Projeto de landing page para ${proofProjects[0].name}`} fill priority sizes="(max-width: 1024px) 100vw, 46vw" className="object-cover object-top" />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-[#dce8e3]">
+              <Image src="/images/luan-profile.webp" alt="Luan Gonzaga, responsável pela criação das landing pages" fill priority sizes="(max-width: 1024px) 100vw, 42vw" className="object-cover object-[center_28%]" />
+              <div className="absolute inset-x-3 bottom-3 rounded-xl bg-[#153f3a]/92 px-4 py-3 text-white backdrop-blur-sm">
+                <p className="text-sm font-bold">Eu cuido do seu projeto do início ao suporte.</p>
+                <p className="mt-1 text-xs text-[#c7d8d5]">Estratégia, design, desenvolvimento e publicação.</p>
+              </div>
             </div>
             <div className="flex items-center justify-between gap-4 px-3 py-3 text-xs">
-              <span className="font-semibold">{proofProjects[0].name}</span>
-              <span className="text-[#526a67]">Saúde · Landing page</span>
+              <span className="font-semibold">Luan Gonzaga</span>
+              <span className="text-[#526a67]">Desenvolvedor web</span>
             </div>
           </div>
         </div>
