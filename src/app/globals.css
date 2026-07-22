@@ -357,3 +357,67 @@ body {
 .proof-details[open] .proof-bottom-summary {
   display: block;
 }
+
+/* movimento da landing page comercial */
+.lp-hero > div:first-child {
+  animation: lp-hero-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.lp-hero > div:last-child {
+  animation: lp-hero-in 0.85s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes lp-hero-in {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lp-hero-title {
+  transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lp-hero-title > span {
+  animation: lp-title-in 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.lp-hero-title.lp-title-changing {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+@keyframes lp-title-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lp-motion-ready [data-lp-reveal],
+.lp-motion-ready .lp-card {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s var(--lp-delay, 0ms) ease, transform 0.65s var(--lp-delay, 0ms) cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lp-motion-ready [data-lp-reveal].lp-visible,
+.lp-motion-ready .lp-card.lp-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lp-card {
+  transition-property: opacity, transform, border-color, box-shadow;
+}
+
+.lp-card:hover {
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-hero > div,
+  .lp-hero-title > span { animation: none; }
+
+  .lp-motion-ready [data-lp-reveal],
+  .lp-motion-ready .lp-card {
+    opacity: 1;
+    transform: none;
+  }
+}
