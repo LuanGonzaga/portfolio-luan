@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -10,15 +10,27 @@ import { site, navLinks, ui } from "@/lib/data";
 export default function MobileMenu() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => setMounted(true), []);
+  const close = () => {
+    setOpen(false);
+    window.requestAnimationFrame(() => triggerRef.current?.focus());
+  };
 
   // trava o scroll da página enquanto o menu cobre a tela
   useEffect(() => {
+    if (!open) return;
     document.body.style.overflow = open ? "hidden" : "";
+    closeRef.current?.focus();
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") close();
+    };
+    document.addEventListener("keydown", onKeyDown);
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
 
@@ -31,9 +43,10 @@ export default function MobileMenu() {
       }`}
     >
       <button
+        ref={closeRef}
         type="button"
         aria-label="Close menu"
-        onClick={() => setOpen(false)}
+        onClick={close}
         className="absolute right-6 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-dark-line text-dark-text"
       >
         ✕
@@ -44,7 +57,7 @@ export default function MobileMenu() {
           <Link
             key={l.href}
             href={l.href}
-            onClick={() => setOpen(false)}
+            onClick={close}
             style={{ transitionDelay: open ? `${100 + i * 60}ms` : "0ms" }}
             className={`font-(family-name:--font-display) text-4xl font-bold transition-[opacity,translate] duration-500 ${
               open ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
@@ -64,7 +77,7 @@ export default function MobileMenu() {
         <LanguageSwitcher dark />
         <a
           href={`mailto:${site.email}`}
-          onClick={() => setOpen(false)}
+          onClick={close}
           className="rounded-full bg-dark-text px-6 py-4 text-center text-sm text-dark"
         >
           {t(ui.letsTalk)} ↗
@@ -76,6 +89,7 @@ export default function MobileMenu() {
   return (
     <div className="md:hidden">
       <button
+        ref={triggerRef}
         type="button"
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
@@ -94,7 +108,7 @@ export default function MobileMenu() {
         />
       </button>
 
-      {mounted && createPortal(overlay, document.body)}
+      {open && createPortal(overlay, document.body)}
     </div>
   );
 }

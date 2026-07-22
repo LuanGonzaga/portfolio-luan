@@ -7,12 +7,15 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import Reveal from "@/components/Reveal";
 import PageTransition from "@/components/PageTransition";
+import SocialProof from "@/components/SocialProof";
+import WhatsApp from "@/components/icons/WhatsApp";
 import { useI18n } from "@/lib/i18n";
 import {
   pillarBySlug,
   projectsByPillar,
   certifications,
   site,
+  whatsapp,
   ui,
   fill,
   type PillarSlug,
@@ -31,6 +34,10 @@ export default function PillarPage({ slug }: { slug: PillarSlug }) {
   // título letra por letra, como na página de case da referência
   useGSAP(
     () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(".pillar-letter", { opacity: 1, clearProps: "transform" });
+        return;
+      }
       gsap.fromTo(
         ".pillar-letter",
         { opacity: 0, yPercent: 60 },
@@ -185,6 +192,8 @@ export default function PillarPage({ slug }: { slug: PillarSlug }) {
       </div>
       )}
 
+      {slug === "dev" && <SocialProof />}
+
       {slug === "security" && (
         <div className="mt-24">
           <Reveal>
@@ -221,18 +230,38 @@ export default function PillarPage({ slug }: { slug: PillarSlug }) {
       <div className="mt-24 flex flex-col items-center py-16 text-center">
         <Reveal>
           <h2 className="font-(family-name:--font-display) text-3xl font-extrabold sm:text-5xl">
-            {fill(t(ui.need), title)}
+            {slug === "dev" ? t(ui.devCtaHeading) : fill(t(ui.need), title)}
           </h2>
         </Reveal>
+        {slug === "dev" && (
+          <Reveal delay={0.1} className="mt-5">
+            <p className="max-w-lg text-sm leading-relaxed text-muted sm:text-base">
+              {t(ui.devCtaBlurb)}
+            </p>
+          </Reveal>
+        )}
         <Reveal delay={0.15} className="mt-8">
-          <a
-            href={`mailto:${site.email}`}
-            className={`inline-block rounded-full px-8 py-4 text-sm transition-transform hover:scale-105 ${
-              dark ? "bg-dark-text text-dark" : "bg-ink text-white"
-            }`}
-          >
-            {t(ui.contactMe)} ↗
-          </a>
+          <div className="flex items-center justify-center gap-3">
+            <a
+              href={`mailto:${site.email}`}
+              className={`inline-block rounded-full px-8 py-4 text-sm transition-transform hover:scale-105 ${
+                dark ? "bg-dark-text text-dark" : "bg-ink text-white"
+              }`}
+            >
+              {t(ui.contactMe)} ↗
+            </a>
+            {slug === "dev" && (
+              <a
+                href={`${whatsapp.href}?text=${encodeURIComponent("Olá, Luan! Vi seus trabalhos de desenvolvimento web e gostaria de conversar sobre uma landing page.")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Falar com Luan pelo WhatsApp"
+                className="inline-flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#25D366] text-white transition-transform hover:scale-105"
+              >
+                <WhatsApp className="h-5 w-5" />
+              </a>
+            )}
+          </div>
         </Reveal>
         </div>
       </main>

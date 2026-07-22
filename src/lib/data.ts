@@ -8,9 +8,9 @@ export const site = {
   firstName: "LUAN",
   lastName: "GONZAGA",
   availability: {
-    en: "Available for new projects",
-    pt: "Disponível para novos projetos",
-    es: "Disponible para nuevos proyectos",
+    en: "Open to professional opportunities",
+    pt: "Aberto a oportunidades profissionais",
+    es: "Abierto a oportunidades profesionales",
   } as L,
   email: "luangonzaga@vk.com",
   roles: [
@@ -33,6 +33,16 @@ export const ui = {
     es: "Colaboremos",
   },
   contactMe: { en: "Contact Me", pt: "Fale comigo", es: "Contáctame" },
+  devCtaHeading: {
+    en: "NEED A LANDING PAGE?",
+    pt: "PRECISA DE UMA LANDING PAGE?",
+    es: "¿NECESITAS UNA LANDING PAGE?",
+  },
+  devCtaBlurb: {
+    en: "Let's talk about your idea and turn it into a fast, clear and well-crafted page.",
+    pt: "Vamos conversar sobre sua ideia e transformá-la em uma página rápida, clara e bem construída.",
+    es: "Hablemos de tu idea y convirtámosla en una página rápida, clara y bien construida.",
+  },
   heroBlurb: {
     en: "I build web products, break them to make them safer, and market them to grow.",
     pt: "Eu construo produtos web, os quebro para torná-los mais seguros e faço marketing para crescê-los.",
@@ -53,18 +63,22 @@ export const ui = {
   },
   back: { en: "Back", pt: "Voltar", es: "Volver" },
   ctaHeading: {
-    en: "HAVE A PROJECT IN MIND?",
-    pt: "TEM UM PROJETO EM MENTE?",
-    es: "¿TIENES UN PROYECTO EN MENTE?",
+    en: "LET'S CONNECT",
+    pt: "VAMOS CONVERSAR",
+    es: "HABLEMOS",
   },
   ctaBlurb: {
-    en: "Build it, secure it, grow it — or all three. Let's talk about what you need.",
-    pt: "Construir, proteger, crescer — ou os três. Vamos conversar sobre o que você precisa.",
-    es: "Construir, proteger, crecer — o los tres. Hablemos de lo que necesitas.",
+    en: "Want to discuss technology, security, marketing or a professional opportunity? Get in touch.",
+    pt: "Quer conversar sobre tecnologia, segurança, marketing ou uma oportunidade profissional? Entre em contato.",
+    es: "¿Quieres hablar sobre tecnología, seguridad, marketing o una oportunidad profesional? Ponte en contacto.",
   },
   // padrões com {x} substituído no componente
   explore: { en: "Explore {x}", pt: "Explorar {x}", es: "Explorar {x}" },
-  need: { en: "NEED {x}?", pt: "PRECISA DE {x}?", es: "¿NECESITAS {x}?" },
+  need: {
+    en: "LET'S CONNECT ABOUT {x}",
+    pt: "VAMOS CONVERSAR SOBRE {x}",
+    es: "HABLEMOS SOBRE {x}",
+  },
 } satisfies Record<string, L>;
 
 /** substitui {x} num padrão traduzível */
@@ -541,11 +555,118 @@ export const projectsByPillar = (slug: PillarSlug) =>
 
 export const publishedProjects = projects.filter((p) => p.published !== false);
 
+export type ProofProject = {
+  name: string;
+  segment: L;
+  service: L;
+  image: string;
+};
+
+/** Trabalhos visuais selecionados. Métricas só entram quando houver fonte verificável. */
+const featuredProofProjects: ProofProject[] = [
+  {
+    name: "Dra. Sarah Melo",
+    segment: { en: "Healthcare", pt: "Saúde", es: "Salud" },
+    service: { en: "Landing page", pt: "Landing page", es: "Landing page" },
+    image: "/proof/drasarahmelo.webp",
+  },
+  {
+    name: "Bernardes Calçados",
+    segment: { en: "Retail", pt: "Varejo", es: "Retail" },
+    service: { en: "E-commerce", pt: "E-commerce", es: "E-commerce" },
+    image: "/proof/bernardescalcados.webp",
+  },
+  {
+    name: "Viviane Pompilha",
+    segment: { en: "Insurance", pt: "Seguros", es: "Seguros" },
+    service: { en: "Conversion page", pt: "Página de conversão", es: "Página de conversión" },
+    image: "/proof/vivianepompilha.webp",
+  },
+  {
+    name: "Gerir",
+    segment: { en: "B2B services", pt: "Serviços B2B", es: "Servicios B2B" },
+    service: { en: "Landing page", pt: "Landing page", es: "Landing page" },
+    image: "/proof/gerir.webp",
+  },
+  {
+    name: "Instituto dos Negócios",
+    segment: { en: "Education", pt: "Educação", es: "Educación" },
+    service: { en: "Sales page", pt: "Página de vendas", es: "Página de ventas" },
+    image: "/proof/institutodosnegocios.webp",
+  },
+  {
+    name: "Auto Socorro Ponta Grossa",
+    segment: { en: "Local business", pt: "Negócio local", es: "Negocio local" },
+    service: { en: "Lead generation page", pt: "Página de captação", es: "Página de captación" },
+    image: "/proof/autosocorro.webp",
+  },
+];
+
+const additionalProofPages = [
+  ["Alexandrino", "alexandrino.netlify.app.webp"],
+  ["Ane Marielle", "anemarielle.netlify.app.webp"],
+  ["Boldie", "boldie.com.br.webp"],
+  ["Camisetaria Wind Banner", "camisetariawindbanner.netlify.app.webp"],
+  ["Daniel Santos", "danielsantosmissao.netlify.app.webp"],
+  ["Deborah Machado", "deborahmachado.com.br.webp"],
+  ["Desperte Sua Potência", "despertesuapotencia.com.br.webp"],
+  ["Dor de Cabeça Florianópolis", "dordecabecaflorianopolis.com.br.webp"],
+  ["Estética Cintia Bilhar", "esteticacintiabilhar.com.br.webp"],
+  ["Exclusive Delas", "exclusivodelas.com.br.webp"],
+  ["Facilita Saúde", "facilitasaudelp.netlify.app.webp"],
+  ["Flats Carneiros", "flatsscarneiros.com.br.webp"],
+  ["Gabriela Pitrovski", "gabrielapitrovski.com.br.webp"],
+  ["Google Expert", "googleexpert.netlify.app.webp"],
+  ["Iendrick", "iendrick.com.webp"],
+  ["Imobiliário Guilherme", "imobiliarioguilherme.netlify.app.webp"],
+  ["Instituto Francine", "institutofrancine.netlify.app.webp"],
+  ["Jacke Mello", "jackemello.netlify.app.webp"],
+  ["Janaína", "janainalp.netlify.app.webp"],
+  ["La Rosita", "larosita.com.br.webp"],
+  ["Lustosa", "lustosa.netlify.app.webp"],
+  ["Mais Mulheres", "maismulheres.netlify.app.webp"],
+  ["Martcom", "martcom.com.br.webp"],
+  ["Método da Consciência", "metododaconsciencia.netlify.app.webp"],
+  ["Método Dra. Spitz", "metododraspitz.com.br.webp"],
+  ["Método Feel", "metodofeelvictor.netlify.app.webp"],
+  ["Método Spa Design", "metodospadesign.netlify.app.webp"],
+  ["Mundo de Margarida", "mundodemargarida.com.br.webp"],
+  ["O Metodo Log", "ometodolog.com.br.webp"],
+  ["OSR", "osr.com.br.webp"],
+  ["Sono Clinic", "sonoclinicfinal.netlify.app.webp"],
+  ["Strativ", "strativ.com.br.webp"],
+  ["Vase Solutions", "vasesolutionssite.netlify.app.webp"],
+  ["WB Junior", "wbjunior.com.br.webp"],
+  ["Wilson Viana", "wilsonviana.netlify.app.webp"],
+  ["Coreógrafo dos Sonhos", "xn--coregrafodosonhos-jyb.com.webp"],
+] as const;
+
+const landingPageLabel: L = {
+  en: "Landing page",
+  pt: "Landing page",
+  es: "Landing page",
+};
+
+const multipleMarkets: L = {
+  en: "Digital business",
+  pt: "Negócio digital",
+  es: "Negocio digital",
+};
+
+export const proofProjects: ProofProject[] = [
+  ...featuredProofProjects,
+  ...additionalProofPages.map(([name, file]) => ({
+    name,
+    segment: multipleMarkets,
+    service: landingPageLabel,
+    image: `/proof/${file}`,
+  })),
+];
+
 // ===== Links de navegação =====
 export type NavLink = { label: L; href: string; count?: string };
 
 export const navLinks: NavLink[] = [
-  { label: { en: "Work", pt: "Trabalhos", es: "Trabajos" }, href: "/#work" },
   {
     label: { en: "Pillars", pt: "Pilares", es: "Pilares" },
     href: "/#pillars",

@@ -265,6 +265,14 @@ body {
 
 /* ===== acessibilidade: reduz movimento ===== */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+
   .clouds::before,
   .clouds::after,
   .scroll-hint-line,
@@ -334,4 +342,18 @@ body {
 
 .pillar-body > div {
   overflow: hidden;
+}
+
+.proof-details .proof-close-label,
+.proof-details .proof-bottom-summary {
+  display: none;
+}
+
+.proof-details[open] .proof-open-label {
+  display: none;
+}
+
+.proof-details[open] .proof-close-label,
+.proof-details[open] .proof-bottom-summary {
+  display: block;
 }

@@ -35,6 +35,10 @@ export default function Hero() {
   };
 
   useGSAP(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      gsap.set(photoRef.current, { opacity: 1, clearProps: "transform" });
+      return;
+    }
     // entrada da foto
     gsap.fromTo(
       photoRef.current,
@@ -75,6 +79,11 @@ export default function Hero() {
     () => {
       const items = gsap.utils.toArray<HTMLElement>(".hero-role");
       if (items.length < 2) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(items, { yPercent: 0 });
+        gsap.set(items.slice(1), { display: "none" });
+        return;
+      }
 
       gsap.set(items, { yPercent: 110 });
       const tl = gsap.timeline({ repeat: -1 });
@@ -96,6 +105,7 @@ export default function Hero() {
   );
 
   const onSectionMove = (e: React.MouseEvent) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const bounds = photoRef.current?.getBoundingClientRect();
     if (!bounds) return;
 

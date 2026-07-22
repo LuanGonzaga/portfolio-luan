@@ -46,8 +46,11 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(DEFAULT);
 
   useEffect(() => {
-    const initial = detectInitial();
-    if (initial !== DEFAULT) setLocaleState(initial);
+    const timer = window.setTimeout(() => {
+      const initial = detectInitial();
+      if (initial !== DEFAULT) setLocaleState(initial);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {

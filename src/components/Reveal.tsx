@@ -32,6 +32,10 @@ export default function Reveal({
     () => {
       const inner = ref.current?.firstElementChild;
       if (!inner) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(inner, { clearProps: "transform" });
+        return;
+      }
 
       gsap.fromTo(
         inner,

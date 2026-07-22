@@ -26,6 +26,7 @@ export default function Magnetic({
   useGSAP(
     () => {
       if (!ref.current) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       xTo.current = gsap.quickTo(ref.current, "x", {
         duration: 0.6,
         ease: "elastic.out(1, 0.4)",
